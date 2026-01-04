@@ -32,6 +32,7 @@ class RecipeSerializer(serializers.ModelSerializer):
     """Serializer for recipe."""
     tags = TagSerializer(many=True, required=False)
     ingredients = IngredientSerializer(many=True, required=False)
+
     class Meta:
         model = Recipe
         fields = [
