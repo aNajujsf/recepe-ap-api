@@ -12,6 +12,7 @@ from rest_framework import (
     mixins,
     status,
 )
+
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication
@@ -31,8 +32,13 @@ from recipe import serializers
             OpenApiParameter(
                 'tags',
                 OpenApiTypes.STR,
+                description='Comma separated list of tag IDs to filter',
+            ),
+            OpenApiParameter(
+                'ingredients',
+                OpenApiTypes.STR,
                 description='Comma separated list of ingredients IDs to filter'
-            )
+            ),
         ]
     )
 )
@@ -70,7 +76,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
         elif self.action == 'upload_image':
             return serializers.RecipeImageSerializer
 
-        return serializers.RecipeSerializer
+        return self.serializer_class
 
     def perform_create(self, serializer):
         """Create a new recipe."""
@@ -95,8 +101,8 @@ class RecipeViewSet(viewsets.ModelViewSet):
             OpenApiParameter(
                 'assigned_only',
                 OpenApiTypes.INT, enum=[0, 1],
-                description='Filter by items assigned to recipes.'
-            )
+                description='Filter by items assigned to recipes.',
+            ),
         ]
     )
 )
