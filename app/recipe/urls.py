@@ -9,12 +9,15 @@ from django.urls import (
 from rest_framework.routers import DefaultRouter
 
 from recipe import views
+from recipe.views import SensorViewSet
 
 
 router = DefaultRouter()
 router.register('recipes', views.RecipeViewSet)
 router.register('tags', views.TagViewSet)
 router.register('ingredients', views.IngredientViewSet)
+router.register("sensors", SensorViewSet, basename="sensor")
+
 
 app_name = 'recipe'
 

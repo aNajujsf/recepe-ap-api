@@ -73,6 +73,23 @@ class ModelTests(TestCase):
 
         self.assertEqual(str(recipe), recipe.title)
 
+    def test_create_sensors(self):
+        """Teste para crianção dos dados para os sensores."""
+        user = get_user_model().objects.create_user(
+            'test@example.com',
+            'testpass123',
+        )
+        sensors = models.Sensor.objects.create(
+            user=user,
+            distancia_cm=80,
+            volume_litros=80,
+            percentual=90,
+            status='cheio',
+            device_id='ESP32_01',
+        )
+
+        self.assertEqual(str(sensors), f"{sensors.device_id} - {sensors.percentual}%")
+
     def test_create_tag(self):
         """Test creating a tag is successful."""
         user = create_user()

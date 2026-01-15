@@ -22,8 +22,11 @@ from core.models import (
     Recipe,
     Tag,
     Ingredient,
+    Sensor,
 )
 from recipe import serializers
+from recipe.serializers import SensorSerializer
+
 
 
 @extend_schema_view(
@@ -43,7 +46,7 @@ from recipe import serializers
     )
 )
 class RecipeViewSet(viewsets.ModelViewSet):
-    """ViewSet for manage recipe APIs.."""
+    """ViewSet for manage recipe APIs."""
     serializer_class = serializers.RecipeDetailSerializer
     queryset = Recipe.objects.all()
     authentication_classes = [TokenAuthentication]
@@ -106,6 +109,21 @@ class RecipeViewSet(viewsets.ModelViewSet):
         ]
     )
 )
+
+
+class SensorViewSet(viewsets.ModelViewSet):
+    """Base viewset sensor."""
+    serializer_class = SensorSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Sensor.objects.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
 class BaseRecipeAttrViewSet(mixins.DestroyModelMixin,
                             mixins.UpdateModelMixin,
                             mixins.ListModelMixin,
