@@ -7,7 +7,6 @@ from core.models import (
     Recipe,
     Tag,
     Ingredient,
-    Sensor,
 )
 
 
@@ -88,23 +87,6 @@ class RecipeSerializer(serializers.ModelSerializer):
 
         instance.save()
         return instance
-
-
-class SensorSerializer(serializers.ModelSerializer):
-    """Serializer do sensor"""
-
-    class Meta:
-        model = Sensor
-        fields = [
-            "id",
-            "device_id",
-            "distancia_cm",
-            "volume_litros",
-            "percentual",
-            "status",
-            "created_at",
-        ]
-        read_only_fields = ["id", "created_at"]
 
 
 class RecipeDetailSerializer(RecipeSerializer):
