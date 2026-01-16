@@ -75,6 +75,7 @@ class Recipe(models.Model):
     def __str__(self):
         return self.title
 
+
 class Sensor(models.Model):
     """Sensor data sent by esp32."""
     user = models.ForeignKey(
@@ -92,6 +93,7 @@ class Sensor(models.Model):
 
     def __str__(self):
         return f"{self.device_id} - {self.percentual}%"
+
 
 class Tag(models.Model):
     """Tag for filtering recipes."""

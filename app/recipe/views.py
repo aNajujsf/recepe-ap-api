@@ -28,7 +28,6 @@ from recipe import serializers
 from recipe.serializers import SensorSerializer
 
 
-
 @extend_schema_view(
     list=extend_schema(
         parameters=[
@@ -109,21 +108,6 @@ class RecipeViewSet(viewsets.ModelViewSet):
         ]
     )
 )
-
-
-class SensorViewSet(viewsets.ModelViewSet):
-    """Base viewset sensor."""
-    serializer_class = SensorSerializer
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
-
-    def get_queryset(self):
-        return Sensor.objects.filter(user=self.request.user)
-
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
-
-
 class BaseRecipeAttrViewSet(mixins.DestroyModelMixin,
                             mixins.UpdateModelMixin,
                             mixins.ListModelMixin,
