@@ -24,7 +24,6 @@ from core.models import (
     Ingredient,
 )
 from recipe import serializers
-from recipe.serializers import SensorSerializer
 
 
 @extend_schema_view(
