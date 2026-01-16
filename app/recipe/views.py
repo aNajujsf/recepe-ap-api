@@ -22,7 +22,6 @@ from core.models import (
     Recipe,
     Tag,
     Ingredient,
-    Sensor,
 )
 from recipe import serializers
 from recipe.serializers import SensorSerializer

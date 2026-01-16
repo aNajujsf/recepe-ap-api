@@ -76,25 +76,6 @@ class Recipe(models.Model):
         return self.title
 
 
-class Sensor(models.Model):
-    """Sensor data sent by esp32."""
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-        related_name="sensor_readings",
-    )
-    distancia_cm = models.IntegerField()
-    volume_litros = models.IntegerField()
-    percentual = models.IntegerField()
-    status = models.CharField(max_length=255)
-    device_id = models.CharField(max_length=255)
-
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"{self.device_id} - {self.percentual}%"
-
-
 class Tag(models.Model):
     """Tag for filtering recipes."""
     name = models.CharField(max_length=255)
